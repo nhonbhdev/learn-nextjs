@@ -1,11 +1,26 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
+import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
+import { useRouter } from 'next/router'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const router = useRouter()
+
+  function goToDetailPage() {
+    router.push({
+      pathname: '/posts/[postId]',
+      query: {
+        // object query có tham số postId, ref...
+        postId: 123,
+        ref: 'social',
+      },
+    })
+  }
+
   return (
     <>
       <Head>
@@ -38,6 +53,9 @@ export default function Home() {
             </a>
           </div>
         </div>
+
+        <Link href="/about">Go to about</Link>
+        <button onClick={goToDetailPage}>Go to post detail page</button>
 
         <div className={styles.center}>
           <Image
@@ -103,8 +121,7 @@ export default function Home() {
               Deploy <span>-&gt;</span>
             </h2>
             <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
+              Instantly deploy your Next.js site to a shareable URL with&nbsp;Vercel.
             </p>
           </a>
         </div>
